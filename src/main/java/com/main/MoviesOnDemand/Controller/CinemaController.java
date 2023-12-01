@@ -50,7 +50,7 @@ public class CinemaController {
 
             Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            Cinema result = cinemaService.addBook(cinema);
+            Cinema result = cinemaService.addEntity(cinema);
             model.addAttribute("cinema", result);
         }catch (Exception e){
             e.printStackTrace();

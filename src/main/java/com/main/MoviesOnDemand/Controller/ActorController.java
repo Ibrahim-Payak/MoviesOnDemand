@@ -49,7 +49,7 @@ public class ActorController {
 
             Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            Actor result = actorService.addBook(actor);
+            Actor result = actorService.addEntity(actor);
             model.addAttribute("actor", result);
         }catch (Exception e){
             e.printStackTrace();

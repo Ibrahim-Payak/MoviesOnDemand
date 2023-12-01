@@ -42,7 +42,7 @@ public class AccountController {
         if(oldUser == null)
         {
             user.setUserType(UserType.NORMAL);
-            userService.addBook(user);
+            userService.addEntity(user);
             model.addAttribute("user", new User());
             session.setAttribute("message", new Message("Registration successful! kindly login with same credentials", "success"));
         }

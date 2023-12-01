@@ -8,27 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ActorService {
-    @Autowired
-    private ActorRepository actorRepository;
+public class ActorService extends GenericService<Actor, Integer>{
 
-    public List<Actor> getAll(){
-        return (List<Actor>) actorRepository.findAll();
-    }
-
-    public Actor getBookById(int id){
-        return actorRepository.findById(id).get();
-    }
-
-    public Actor addBook(Actor book){
-        return actorRepository.save(book);
-    }
-
-    public void deleteBook(int id){
-        actorRepository.deleteById(id);
-    }
-
-    public Actor updateBook(Actor book) {
-        return actorRepository.save(book);
-    }
 }

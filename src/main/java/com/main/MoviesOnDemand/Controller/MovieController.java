@@ -70,7 +70,7 @@ public class MovieController {
 
                 Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-                Movie result = movieService.addBook(movie);
+                Movie result = movieService.addEntity(movie);
                 model.addAttribute("movie", result);
                 session.setAttribute("message", new Message("Movie added successfully", "success"));
             }catch (Exception e){
@@ -83,7 +83,7 @@ public class MovieController {
 
     @GetMapping("/details/{id}")
     public String showMovie(@PathVariable("id") int movieId, Model model) {
-        Movie movie = movieService.getBookById(movieId);
+        Movie movie = movieService.getById(movieId);
 
         if(movie == null) return "home";
 
@@ -98,7 +98,7 @@ public class MovieController {
         List<Actor> actors = actorService.getAll();
         List<Cinema> cinemas = cinemaService.getAll();
         List<Producer> producers = producerService.getAll();
-        Movie movie = movieService.getBookById(movieId);
+        Movie movie = movieService.getById(movieId);
 
 
         model.addAttribute("movieCategories", MovieCategory.values());
@@ -113,7 +113,7 @@ public class MovieController {
 
     @GetMapping("/deleteMovie/{id}")
     public String deleteMovie(@PathVariable("id") int movieId, HttpSession session) {
-        movieService.deleteBook(movieId);
+        movieService.deleteEntity(movieId);
 
         session.setAttribute("message", new Message("movie deleted successfully", "warning"));
 
@@ -126,7 +126,7 @@ public class MovieController {
 
             //if file is not empty then
                 //delete old image, set new image
-            Movie oldMovie = movieService.getBookById(movieId);
+            Movie oldMovie = movieService.getById(movieId);
 
             if(!imageFile.isEmpty()){
                 if (!Objects.equals(imageFile.getContentType(),"image/png") && !Objects.equals(imageFile.getContentType(),"image/jpeg") ) {
@@ -155,7 +155,7 @@ public class MovieController {
 
             movie.setId(movieId);
 
-            Movie result = movieService.updateBook(movie);
+            Movie result = movieService.updateEntity(movie);
             model.addAttribute("movie", result);
             session.setAttribute("message", new Message("Movie updated successfully", "success"));
         }catch (Exception e){

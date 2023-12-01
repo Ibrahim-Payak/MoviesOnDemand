@@ -49,7 +49,7 @@ public class ProducerController {
 
             Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            Producer result = producerService.addBook(producer);
+            Producer result = producerService.addEntity(producer);
             model.addAttribute("producer", result);
         }catch (Exception e){
             e.printStackTrace();
