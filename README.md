@@ -15,7 +15,7 @@
 ## Overview
 - Web application built to help users to book a ticket online of movies, shows, etc.
   
-![Alt text](![image](https://github.com/Ibrahim-Payak/MoviesOnDemand/assets/114486038/d9d177ac-4069-4fbb-b058-9c457923d2a0))
+!(![image](https://github.com/Ibrahim-Payak/MoviesOnDemand/assets/114486038/d9d177ac-4069-4fbb-b058-9c457923d2a0))
 ![Alt text](![image](https://github.com/Ibrahim-Payak/MoviesOnDemand/assets/114486038/be3e318f-8c99-4911-a7c2-6527ed32bc30))
 ![Alt text](![image](https://github.com/Ibrahim-Payak/MoviesOnDemand/assets/114486038/d9970e08-4162-41cd-8883-fea7526d64bb))
 ![Alt text](![image](https://github.com/Ibrahim-Payak/MoviesOnDemand/assets/114486038/5c17799c-4a3d-4c83-b636-572bd64e0f4a))
