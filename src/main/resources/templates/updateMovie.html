@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="common::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Update Movie Page</title>
+</head>
+<body>
+<section>
+    <h2 class="text-info text-center my-2">Update Movie</h2>
+
+    <form method="post" th:action="@{'/updateMovie/'+${movie.id}}" class="col-md-8 offset-2" enctype="multipart/form-data" th:object="${movie}" th:if="${session.userType == 'admin'}">
+        <div class="col-md-4 offset-4 text-center">
+            <img class="rounded-circle w-100" id="ImagePreview" th:src="@{'/image/' + ${movie.image}}" style="height: 300px;"/>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group my-2">
+                    <label for="image" class="form-label">Image</label>
+                    &nbsp;
+                    <small class="form-text text-muted">Choose a different file</small>
+                    <input name="file" type="file" class="form-control" id="image" placeholder="change current movie poster">
+                </div>
+
+
+                <div class="form-group my-2">
+                    <label for="releaseDate" class="form-label">Release Date</label>
+                    <input required name="releaseDate" type="date" class="form-control" id="releaseDate" th:value="${#dates.format(movie.releaseDate, 'yyyy-MM-dd')}">
+                </div>
+
+                <div class="form-group my-2">
+                    <label for="actors">Select Actors</label>
+                    &nbsp;
+                    <small class="form-text text-muted">Use Ctrl button for selecting multiple Data</small>
+                    <select name="actors" class="form-control" id="actors" multiple th:field="*{actors}">
+                        <option value="">Select an Actor</option>
+                        <th:block th:each="actor : ${actors}">
+                            <option th:value="${actor.actorId}" th:text="${actor.fullName}"></option>
+                        </th:block>
+                    </select>
+                </div>
+
+                <div class="form-group my-2">
+                    <label for="movieCategory">Select Movie Category</label>
+                    &nbsp;<select name="movieCategory" class="form-control" id="movieCategory" th:field="*{movieCategory}">
+                        <option value="">Select a category</option>
+
+                        <th:block th:each="movieCategory : ${movieCategories}">
+                            <option th:value="${movieCategory}" th:text="${movieCategory.getDisplayName()}"></option>
+                        </th:block>
+                    </select>
+                </div>
+
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group my-2">
+                    <label for="name" class="form-label">Movie Name</label>
+                    <input required name="name" type="text" class="form-control" id="name" th:value="${movie.name}">
+                </div>
+
+                <div class="form-group my-2">
+                    <label for="price" class="form-label">Price</label>
+                    <input required name="price" type="number" class="form-control" id="price" th:value="${movie.price}">
+                </div>
+
+                <div class="form-group my-2">
+                    <label for="cinema">Select Cinema</label>
+                    <small class="form-text text-muted">Use Ctrl button for selecting multiple Data</small>
+                    <select name="cinema" class="form-control" id="cinema" multiple th:field="*{cinemas}">
+                        <option value="">Select a Cinema</option>
+                        <th:block th:each="cinema : ${cinemas}">
+                            <option th:value="${cinema.cinemaId}" th:text="${cinema.cinemaName}"></option>
+                        </th:block>
+                    </select>
+                </div>
+
+                <div class="form-group my-2">
+                    <label for="producer">Select Producer</label>
+                    <select name="producer" class="form-control" id="producer" th:field="*{producer}">
+                        <option value="">Select a Producers</option>
+
+                        <th:block th:each="producer : ${producers}">
+                            <option th:value="${producer.producerId}" th:text="${producer.fullName}"></option>
+                        </th:block>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="col-md-12 my-2">
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" class="form-control" th:text="${movie.description}"></textarea>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="form-group my-2">
+            <a class="btn btn-secondary float-left" href="/"><i class="bi bi-card-list"></i> Show All</a>
+            <button type="submit" class="btn btn-primary float-end"><i class="bi bi-plus-circle"></i> Update</button>
+        </div>
+    </form>
+
+    <h2 th:unless="${session.userType == 'admin'}"  class="bg-danger text-center text-white col-8 offset-2">
+        You don't have permission of this feature..
+    </h2>
+</section>
+</body>
+</html>

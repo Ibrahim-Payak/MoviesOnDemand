@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="common::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up Page</title>
+</head>
+<body>
+    <section>
+
+        <div th:if="${session.message}" th:classappend="${'alert-' + session.message.type}" class="alert text-center col-6 offset-3 p-2 mt-4" role="alert">
+            <span th:text="${session.message.content}"></span>
+
+            <th:block th:text="${@sessionHelper.removeMessageSessionAttribute()}"></th:block>
+        </div>
+
+        <h2 class="text-info text-center my-3">Register Your Self</h2>
+
+        <form action="/addUser" method="post" class="col-6 offset-3" th:object="${user}">
+
+            <div class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label for="name" class="form-label">User Name</label>
+                <input name="userName" type="text" class="form-control" id="name" th:value="${user.userName}" placeholder="Enter here">
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input name="userEmail" type="email" class="form-control" id="email" th:value="${user.userEmail}" placeholder="name@example.com">
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input name="userPassword" type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input name="userConfirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+            </div>
+
+            <a href="login" class="text-center d-block mb-4">Already having account, click here to login</a>
+
+            <div class="form-group mb-3">
+                <a class="btn btn-outline-secondary" href="/">Back</a>
+                <button type="submit" class="btn btn-outline-success float-end">Sign Up</button>
+            </div>
+        </form>
+    </section>
+
+</body>
+</html>

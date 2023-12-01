@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="common::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Create Producer Page</title>
+</head>
+<body>
+    <section>
+        <h2 class="text-info text-center my-3">Add New Producer</h2>
+
+        <form action="/addProducer" method="post"  class="col-6 offset-3" enctype="multipart/form-data" th:object="${producer}" th:if="${session.userType == 'admin'}">
+            <div class="form-group my-2">
+                <label for="image" class="form-label">Image</label>
+                <input required name="file" type="file" class="form-control" id="image">
+            </div>
+
+            <div class="form-group my-2">
+                <label for="name" class="form-label">Producer Name</label>
+                <input required name="fullName" type="text" class="form-control" id="name" placeholder="Enter Producer name">
+            </div>
+
+            <div class="col-md-12 my-2">
+                <div class="form-group">
+                    <label for="bio">Bio</label>
+                    <textarea name="bio" id="bio" class="form-control"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group my-2">
+                <a class="btn btn-secondary float-left" href="/"><i class="bi bi-card-list"></i> Show Movies</a>
+                <button type="submit" class="btn btn-primary float-end"><i class="bi bi-plus-circle"></i> Create</button>
+            </div>
+
+        </form>
+
+        <h2 th:unless="${session.userType == 'admin'}" class="bg-danger text-center text-white col-8 offset-2">
+            You don't have permission of this feature..
+        </h2>
+    </section>
+</body>
+</html>

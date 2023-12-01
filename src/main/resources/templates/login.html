@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="common::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Log In Page</title>
+</head>
+<body>
+  <section>
+      <div th:if="${session.message}" th:classappend="${'alert-' + session.message.type}" class="alert alert-dismissible fade show text-center col-6 offset-3" role="alert">
+          <span th:text="${session.message.content}"></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+          <th:block th:text="${@sessionHelper.removeMessageSessionAttribute()}"></th:block>
+      </div>
+
+      <h2 class="text-info text-center my-3">Log In</h2>
+
+      <form action="/validateUser" method="post" class="col-6 offset-3">
+          <div class="form-group mb-3">
+              <label for="email" class="form-label">Email Address</label>
+              <input name="userEmail" type="email" class="form-control" id="email" placeholder="name@example.com">
+          </div>
+
+          <div class="form-group mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input name="userPassword" type="password" class="form-control" id="password" placeholder="Password">
+          </div>
+
+          <a href="signup" class="text-center d-block mb-4">Not having account, click here to create</a>
+
+          <div class="form-group mb-3">
+              <a class="btn btn-outline-secondary" href="/">Back</a>
+              <button type="submit" class="btn btn-outline-success float-end">Log In</button>
+          </div>
+      </form>
+  </section>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="common::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+    <section class="home">
+        <div th:if="${session.message}" th:classappend="${'alert-' + session.message.type}" class="alert alert-dismissible fade show text-center col-6 offset-3" role="alert">
+            <span th:text="${session.message.content}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+            <th:block th:text="${@sessionHelper.removeMessageSessionAttribute()}"></th:block>
+        </div>
+
+
+        <div class="row container-fluid">
+            <th:div th:each="item : ${movies}" class="col-md-4 col-xs-6 border-primary my-3">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-12">
+                            <div class="card-header nav-background">
+                                <div class="card-text d-flex align-items-center justify-content-between">
+                                    <h5 class="card-title" th:text="${item.name}">Movie Name</h5>
+                                    <!-- This will only be accessible when user type is admin -->
+                                    <div class="d-flex" style="margin-top: 20px;">
+                                        <a class="edit" th:href="@{'/editMovie/' + ${item.id}}" th:if="${session.authenticated and session.userType == 'admin'}"><i class="bi bi-pencil-square"></i></a>
+                                        <a class="ml-2 edit text-danger" th:href="@{'/deleteMovie/' + ${item.id}}" th:if="${session.authenticated and session.userType == 'admin'}"><i class="bi bi-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <img th:src="@{'/image/' + ${item.image}}" style="width:100%" alt="${item.name}">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body" style="max-height: 200px;">
+                                <strong>Description: </strong>
+                                <p class="card-text" id="description" style="max-height: 120px; overflow: hidden;" th:text="${item.description}"></p>
+
+                                <strong>Movie Category: </strong>
+                                <p class="card-text" th:text="${item.movieCategory}"></p>
+                                <strong>Release Date: </strong>
+                                <p class="card-text" th:text="${#strings.replace(#dates.format(item.releaseDate, 'dd-MM-yyyy'), '-', '/')}"></p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="card-footer">
+                                <p class="card-text">
+                                    <a class="btn btn-success text-white" onclick="addMovieToShoppingCart(this)" data-bs-toggle="modal" data-bs-target="#cart"
+                                       th:utext="'<i class=\'bi bi-ticket\'></i> Book Now: ₹' + ${item.price}"
+                                       th:attr="movieId=${item.id}, movieName=${item.name}, moviePrice=${item.price}"
+                                       th:classappend="${#dates.createNow().before(item.releaseDate) ? 'disabled' : ''}"></a>
+
+                                    <a class="btn btn-outline-primary float-end" th:href="@{'/details/' + ${item.id}}">
+                                        <i class="bi bi-eye-fill"></i> Show Details
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:div>
+
+        </div>
+    </section>
+</body>
+</html>

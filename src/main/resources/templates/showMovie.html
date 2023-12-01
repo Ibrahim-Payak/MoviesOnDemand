@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="common::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Movie</title>
+</head>
+<body>
+    <section>
+        <h2 class="text-info text-center my-3" th:text="${movie.name+ ' Movie Details'}">Movie Details</h2>
+
+        <div class="row text-center">
+            <div class="col-md-8 offset-2">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-12">
+                            <div class="card-header nav-background">
+                                <p class="card-text">
+                                    <h5 class="card-title" th:text="${movie.name}">Movie Name</h5>
+                                    <a class="float-end edit" th:href="@{'/editMovie/' + ${movie.id}}"  th:if="${session.authenticated and session.userType == 'admin'}"><i class="bi bi-pencil-square"></i></a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <img th:src="@{'/image/' + ${movie.image}}" style="margin-top: 50px;" alt="${movie.name}">
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <p class="card-text" th:text="${movie.description}"></p>
+                                <p class="card-text">
+                                    <b>Cinema: </b>
+                                    <div th:each="cItem : ${movie.cinemas}" class="column px-2">
+                                        <img class="rounded-circle" th:src="@{'/image/' + ${cItem.cinemaLogo}}" style="max-width:100px" />
+                                        <br />
+                                        <a th:text="${cItem.cinemaName}"></a>
+                                    </div>
+                                </p>
+                                <p class="card-text">
+                                    <b>Producer: </b>
+                                    <br>
+                                    <img class="rounded-circle" th:src="@{'/image/' + ${movie.producer.profilePicture}}" style="max-width:100px" />
+                                    <br />
+                                    <a th:text="${movie.name}"></a>
+                                </p>
+                                <strong>Movie Category: </strong>
+                                <p class="card-text" th:text="${movie.movieCategory}"></p>
+
+                                <p class="card-text">
+                                    <b>Actors: </b>
+
+                                    <div th:each="aItem : ${movie.actors}" class="column px-2">
+                                        <img class="rounded-circle" th:src="@{'/image/' + ${aItem.profilePicture}}" style="max-width:80px" />
+                                        <br />
+                                        <a th:text="${aItem.fullName}"></a>
+                                    </div>
+                                </p>
+
+                                <strong>Release Date: </strong>
+                                <p class="card-text" th:text="${#strings.replace(#dates.format(movie.releaseDate, 'dd-MM-yyyy'), '-', '/')}"></p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <div class="card-footer">
+                                <p class="card-text">
+                                    <a class="btn btn-outline-primary float-start" href="/">
+                                        <i class="bi bi-eye-fill"></i> Show All
+                                    </a>
+
+                                    <a class="btn btn-success text-white float-end" href="order" th:text="${'Book Now: ₹' + movie.price}">
+                                        <i class="bi bi-cart-plus"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
